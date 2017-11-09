@@ -47,15 +47,14 @@ public class Controller {
         }catch(InterruptedException e){
             e.printStackTrace();
         }
-        System.out.println("Run First Script!");
-        Object a = webEngine.executeScript(ENTERNUMBERCOMAND);
-
-//        try{
-//            Thread.sleep(1000);
-//        }catch(InterruptedException e){
-//            e.printStackTrace();
-//        }
-//        webEngine.executeScript(NEXTBUTTON);
+        System.out.println("Test");
+        webEngine.executeScript(ENTERNUMBERCOMAND);
+        try{
+            Thread.sleep(1000);
+        }catch(InterruptedException e){
+            e.printStackTrace();
+        }
+        webEngine.executeScript(NEXTBUTTON);
     }
 
     public void getTelegram() {
