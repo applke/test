@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="BotInterface.Settings">
+   <children>
+      <VBox prefHeight="400.0" prefWidth="256.0">
+         <children>
+            <TextArea fx:id="testMessage" prefHeight="434.0" prefWidth="256.0" text="Компания La Fiaba предоставляет услуги в области Premium IT разработки:&#10;&#10; ✓ Веб-решения&#10; ✓ Поддержка-продукта&#10; ✓ Дизайн-продукта &#10; ✓ SMM (Instagram/Facebook)&#10; ✓ SEO (продвижение)&#10; ✓ Adwords (реклама)&#10;&#10;Наши преимущества:&#10;&#10; ✓ Уникальный продукт&#10; ✓ Высокое качество&#10; ✓ Краткие сроки &#10;&#10;Наши контакты:&#10;&#10;Phone: +380664540882 &#10;Email: support@lafiaba.pro&#10;Site: https://lafiaba.pro/" />
+         </children>
+      </VBox>
+      <VBox prefHeight="400.0" prefWidth="180.0">
+         <children>
+            <TableView fx:id="tableUsers" prefHeight="408.0" prefWidth="180.0">
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy></TableView>
+         </children>
+      </VBox>
+      <VBox alignment="CENTER" prefHeight="400.0" prefWidth="153.0">
+         <children>
+            <TextField fx:id="userAdd" />
+            <Button alignment="CENTER" mnemonicParsing="false" onAction="#AddUser" text="Button" VBox.vgrow="ALWAYS" />
+         </children>
+      </VBox>
+   </children>
+</HBox>
