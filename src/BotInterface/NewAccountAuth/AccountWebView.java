@@ -1,4 +1,4 @@
-package BotInterface;
+package BotInterface.NewAccountAuth;
 
 import BotInterface.POJO.User;
 import javafx.application.Application;
@@ -31,9 +31,9 @@ public class AccountWebView {
     public WebEngine webEngine;
     public BooleanProperty ready = new SimpleBooleanProperty(false);
     public BooleanProperty codeRequired = new SimpleBooleanProperty(false);
-    private final ReadOnlyObjectWrapper<JSObject> localStorage = new ReadOnlyObjectWrapper<>();
+    private final ReadOnlyObjectWrapper<String> localStorage = new ReadOnlyObjectWrapper<>();
 
-    public ReadOnlyObjectProperty<JSObject> currentCustomerProperty() {
+    public ReadOnlyObjectProperty<String> currentCustomerProperty() {
         return localStorage.getReadOnlyProperty();
     }
 
@@ -42,6 +42,7 @@ public class AccountWebView {
     final String CHECKNUMBER = "if($('input[name=\"phone_code\"]').length > 0) {true} else {false};";
     final String ENTERCODE = "$('input').trigger('focus').val('%s').trigger('change');";
     final String CHECKLOGIN = "if($('div[ng-controller=\"AppImDialogsController\"]').length>0) {true} else {false}";
+    final String GETLOCALSTORAGE = "(function(){return JSON.stringify(window.localStorage);})();";
     @FXML
     public WebView webview;
 
@@ -53,6 +54,7 @@ public class AccountWebView {
             @Override
             public void changed(ObservableValue<? extends Worker.State> observable, Worker.State oldValue, Worker.State newValue) {
                 if (newValue == Worker.State.SUCCEEDED) {
+
                     webEngine.executeScript("localStorage.clear();");
                     ready.set(true);
                 }
@@ -89,17 +91,7 @@ public class AccountWebView {
     public boolean doAuth(String number) {
         int delay = 2000;
         _number = number;
-        try {
-            JSObject storage = (JSObject) webEngine.executeScript("window.localStorage");
-//            storage.
-//            JSONObject jsonObject = new JSONObject(storage);
-//            System.out.println(storage);
-        }
-        catch (Exception e){
-            System.err.println(e);
-        }
-
-        if (number.length() == 100) {
+        if (number.length() == 9) {
             new Thread(() -> {
                 try {
                     try {
@@ -131,7 +123,7 @@ public class AccountWebView {
     public void sendCode(String code) {
         _code = code;
         int delay = 1000;
-        if (code.length() > 0) {
+        if (code.length() >0) {
             new Thread(() -> {
                 try {
                     try {
@@ -145,10 +137,12 @@ public class AccountWebView {
                         }
                         codeRequired.set(false);
                         Platform.runLater(() -> {
-                            localStorage.set ((JSObject) webEngine.executeScript("window.localStorage"));
+                            localStorage.set((String) webEngine.executeScript(GETLOCALSTORAGE));
+                            System.out.println("Auth Done!");
+                            Stage stage = (Stage) webview.getScene().getWindow();
+                            Platform.runLater(() -> stage.close());
                         });
-                        System.out.println("Auth Done!");
-//                        System.out.println((JSONObject) webEngine.executeScript("window.localStorage"));
+
                     } catch (Exception e) {
 
                         System.err.println(e);
